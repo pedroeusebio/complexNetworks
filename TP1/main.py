@@ -27,7 +27,38 @@ def readGraph(path, separator=" ", direct=True):
     print("ending reading");
     return g
 
+def degreesMetric(g, direct=True):
+    degreeData = {}
+    if(direct):
+        metricIn = {}
+        metricOut = {}
+        degreesIn = g.get_in_degrees(g.get_vertices())
+        degreesOut = g.get_out_degrees(g.get_vertices())
+        degreeData = {
+            "in" : {
+                "max": degreesIn.max(),
+                "min": degreesIn.min(),
+                "mean": degreesIn.mean(),
+                "std": degreesIn.std(),
+            },
+            "out": {
+                "max": degreesOut.max(),
+                "min": degreesOut.min(),
+                "mean": degreesOut.mean(),
+                "std": degreesOut.std(),
+            }
+        }
+    else:
+        degrees = g.get_out_degrees(g.get_vertices())
+        degreeData = {
+            "max": degrees.max(),
+            "min": degrees.min(),
+            "mean": degrees.mean(),
+            "std": degrees.std(),
+        }
+    return degreeData
 
 g = readGraph('./networks/facebook_combined.txt', " ", False)
+# data = degreesMetric(g, False)
 # graph_draw(g, output_size=(2048, 1280), output="facebookT.png")
 
