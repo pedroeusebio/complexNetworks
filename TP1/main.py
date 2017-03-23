@@ -74,6 +74,26 @@ def distanceMetric(g, direct=True):
         stdDist.append(newDist.std())
 
     return {"max": np.max(maxDist), "min": min(minDist), "mean": np.mean(meanDist), "std": np.std(stdDist)}
+
+def clusteringMetric(g, direct=True):
+    localCluster = local_clustering(g, undirected= not direct)
+    localResult = vertex_average(g, localCluster)
+    maxClust = 0;
+    minClust = infDistance;
+    for v in g.vertices():
+        if(localCluster[v] >= maxClust):
+            maxClust = localCluster[v]
+        if(localCluster[v] <= minClust):
+            minClust = localCluster[v]
+
+    return {
+        "global": global_clustering(g),
+        "min": minClust,
+        "max": maxClust,
+        "std": localResult[1],
+        "mean": localResult[0]
+    }
+
 # data = degreesMetric(g, False)
 # graph_draw(g, output_size=(2048, 1280), output="facebookT.png")
 
