@@ -30,8 +30,6 @@ def readGraph(path, separator=" ", direct=True):
 def degreesMetric(g, direct=True):
     degreeData = {}
     if(direct):
-        metricIn = {}
-        metricOut = {}
         degreesIn = g.get_in_degrees(g.get_vertices())
         degreesOut = g.get_out_degrees(g.get_vertices())
         degreeData = {
