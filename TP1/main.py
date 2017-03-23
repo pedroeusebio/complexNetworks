@@ -57,6 +57,23 @@ def degreesMetric(g, direct=True):
     return degreeData
 
 g = readGraph('./networks/facebook_combined.txt', " ", False)
+def distanceMetric(g, direct=True):
+    distanceData = {}
+    distances = shortest_distance(g, directed=direct)
+    maxDist = []
+    minDist = []
+    meanDist = []
+    stdDist = []
+    for v in g.vertices():
+        dist = distances[v].a
+        selfDist = np.where(dist == 0)
+        newDist = np.delete(dist, selfDist)
+        maxDist.append(newDist.max())
+        minDist.append(newDist.min())
+        meanDist.append(newDist.mean())
+        stdDist.append(newDist.std())
+
+    return {"max": np.max(maxDist), "min": min(minDist), "mean": np.mean(meanDist), "std": np.std(stdDist)}
 # data = degreesMetric(g, False)
 # graph_draw(g, output_size=(2048, 1280), output="facebookT.png")
 
