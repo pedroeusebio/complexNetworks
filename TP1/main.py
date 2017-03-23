@@ -1,13 +1,16 @@
 from graph_tool.all import *
+import numpy as np
 
-def readGraph(path, separator=" ", direct=True):
+infDistance = 2147483647
+
+def readGraph(path, separator=" ", endline="\n", direct=True):
     print("start reading !")
     g = Graph(directed=direct)
     file = open(path, "r")
     vertexArray = {}
     for l in file:
         vIdO = l.split(separator)[0]
-        vIdD = l.split(separator)[1].split("\n")[0]
+        vIdD = l.split(separator)[1].split(endline)[0]
 
         vO,vD = None, None
         if(vIdO in vertexArray):
@@ -56,7 +59,6 @@ def degreesMetric(g, direct=True):
         }
     return degreeData
 
-g = readGraph('./networks/facebook_combined.txt', " ", False)
 def distanceMetric(g, direct=True):
     distanceData = {}
     distances = shortest_distance(g, directed=direct)
@@ -94,6 +96,7 @@ def clusteringMetric(g, direct=True):
         "mean": localResult[0]
     }
 
+g = readGraph('./networks/wiki-Vote.txt', " ", endline="\r",  direct=False)
 # data = degreesMetric(g, False)
+print(clusteringMetric(g))
 # graph_draw(g, output_size=(2048, 1280), output="facebookT.png")
-
