@@ -96,7 +96,28 @@ def clusteringMetric(g, direct=True):
         "mean": localResult[0]
     }
 
-g = readGraph('./networks/wiki-Vote.txt', " ", endline="\r",  direct=False)
+def betweeneesMetric(g):
+    result = betweenness(g)
+    vertex = result[0].a
+    edge = result[1].a
+    print(type(vertex))
+    return {
+        "vertex": {
+            "min": vertex.min(),
+            "max": vertex.max(),
+            "mean": vertex.mean(),
+            "std": vertex.std()
+        },
+        "edges": {
+            "min": edge.min(),
+            "max": edge.max(),
+            "mean": edge.mean(),
+            "std": edge.std()
+        }
+    }
+
+g = readGraph('./networks/facebook_combined.txt', " ", endline="\r",  direct=False)
 # data = degreesMetric(g, False)
-print(clusteringMetric(g))
+# print(clusteringMetric(g))
+print(betweeneesMetric(g))
 # graph_draw(g, output_size=(2048, 1280), output="facebookT.png")
