@@ -96,7 +96,7 @@ def clusteringMetric(g, direct=True):
         "mean": localResult[0]
     }
 
-def betweeneesMetric(g):
+def betweenessMetric(g):
     result = betweenness(g)
     vertex = result[0].a
     edge = result[1].a
@@ -116,7 +116,6 @@ def betweeneesMetric(g):
         }
     }
 
-g = readGraph('./networks/facebook_combined.txt', " ", endline="\r",  direct=False)
 def componentsMetric(g, direct=True):
     comp, hist = label_components(g, directed=direct, attractors=True)
     nComponents = comp.a.max()
@@ -142,7 +141,10 @@ def closenessMetric(g):
         "std": vertexCloseness.a.std()
     }
 
+g = readGraph('./networks/wiki-Vote.txt', " ", endline="\r",  direct=False)
 # data = degreesMetric(g, False)
 # print(clusteringMetric(g))
-print(betweeneesMetric(g))
+# print(betweenessMetric(g))
+# print(componentsMetric(g, False))
+print(closenessMetric(g))
 # graph_draw(g, output_size=(2048, 1280), output="facebookT.png")
