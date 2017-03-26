@@ -1,5 +1,6 @@
 from graph_tool.all import *
 import numpy as np
+import matplotlib.pyplot as plt
 
 infDistance = 2147483647
 
@@ -30,7 +31,14 @@ def readGraph(path, separator=" ", endline="\n", direct=True):
     print("ending reading");
     return g
 
-def degreesMetric(g, direct=True):
+def cdfReport(data, filename="export"):
+    sorted = np.sort(data)
+    yvals = np.arange(len(sorted))/float(len(sorted))
+    plt.plot(sorted, yvals)
+    plt.savefig(filename)
+
+
+def degreesMetric(g, direct=True, graphName="default"):
     degreeData = {}
     if(direct):
         degreesIn = g.get_in_degrees(g.get_vertices())
@@ -49,6 +57,8 @@ def degreesMetric(g, direct=True):
                 "std": degreesOut.std(),
             }
         }
+        cdfReport(degreeIn, filename="_".join(str(x) for x in [graphName,"degreeIn"]))
+        cdfReport(degreeOut, filename="_".join(str(x) for x in [graphName,"degreeOut"]))
     else:
         degrees = g.get_out_degrees(g.get_vertices())
         degreeData = {
@@ -57,9 +67,10 @@ def degreesMetric(g, direct=True):
             "mean": degrees.mean(),
             "std": degrees.std(),
         }
+        cdfReport(degrees, filename="_".join(str(x) for x in [graphName,"degree"]))
     return degreeData
 
-def distanceMetric(g, direct=True):
+def distanceMetric(g, direct=True, graphName="default"):
     distanceData = {}
     distances = shortest_distance(g, directed=direct)
     maxDist = []
@@ -77,7 +88,8 @@ def distanceMetric(g, direct=True):
 
     return {"max": np.max(maxDist), "min": min(minDist), "mean": np.mean(meanDist), "std": np.std(stdDist)}
 
-def clusteringMetric(g, direct=True):
+def clusteringMetric(g, direct=True, graphName="default"):
+    filename = "_".join(str(x) for x in [graphName,"cluster"])
     localCluster = local_clustering(g, undirected= not direct)
     localResult = vertex_average(g, localCluster)
     maxClust = 0;
@@ -87,6 +99,7 @@ def clusteringMetric(g, direct=True):
             maxClust = localCluster[v]
         if(localCluster[v] <= minClust):
             minClust = localCluster[v]
+    cdfReport(localCluster.a, filename)
 
     return {
         "global": global_clustering(g),
@@ -96,11 +109,14 @@ def clusteringMetric(g, direct=True):
         "mean": localResult[0]
     }
 
-def betweenessMetric(g):
+def betweenessMetric(g, graphName="default"):
+    filename = "_".join(str(x) for x in [graphName,"betweeness"])
     result = betweenness(g)
     vertex = result[0].a
     edge = result[1].a
-    print(type(vertex))
+    cdfReport(vertex, filename + "_vertex")
+    cdfReport(edge, filename + "_edge")
+
     return {
         "vertex": {
             "min": vertex.min(),
@@ -116,12 +132,14 @@ def betweenessMetric(g):
         }
     }
 
-def componentsMetric(g, direct=True):
+def componentsMetric(g, direct=True, graphName="default"):
+    filename = "_".join(str(x) for x in [graphName,"components"])
     comp, hist = label_components(g, directed=direct, attractors=True)
     nComponents = comp.a.max()
     largestComponent = hist.max()
     indexLargest = np.where(hist == largestComponent)
     idLargest = comp.a[indexLargest]
+    cdfReport(hist, filename);
     return {
         "components": nComponents + 1,
         "largest" : {
@@ -132,8 +150,10 @@ def componentsMetric(g, direct=True):
         "std": hist.std()
     }
 
-def closenessMetric(g):
+def closenessMetric(g, graphName="default"):
+    filename = "_".join(str(x) for x in [graphName,"closeness"])
     vertexCloseness = closeness(g)
+    cdfReport(vertexCloseness.a, filename);
     return {
         "max": vertexCloseness.a.max(),
         "min": vertexCloseness.a.min(),
