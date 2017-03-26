@@ -117,6 +117,21 @@ def betweeneesMetric(g):
     }
 
 g = readGraph('./networks/facebook_combined.txt', " ", endline="\r",  direct=False)
+def componentsMetric(g, direct=True):
+    comp, hist = label_components(g, directed=direct, attractors=True)
+    nComponents = comp.a.max()
+    largestComponent = hist.max()
+    indexLargest = np.where(hist == largestComponent)
+    idLargest = comp.a[indexLargest]
+    return {
+        "components": nComponents + 1,
+        "largest" : {
+            "size": largestComponent,
+            "id": indexLargest
+        },
+        "mean": hist.mean(),
+        "std": hist.std()
+    }
 # data = degreesMetric(g, False)
 # print(clusteringMetric(g))
 print(betweeneesMetric(g))
