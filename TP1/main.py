@@ -132,6 +132,16 @@ def componentsMetric(g, direct=True):
         "mean": hist.mean(),
         "std": hist.std()
     }
+
+def closenessMetric(g):
+    vertexCloseness = closeness(g)
+    return {
+        "max": vertexCloseness.a.max(),
+        "min": vertexCloseness.a.min(),
+        "mean": vertexCloseness.a.mean(),
+        "std": vertexCloseness.a.std()
+    }
+
 # data = degreesMetric(g, False)
 # print(clusteringMetric(g))
 print(betweeneesMetric(g))
