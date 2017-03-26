@@ -12,7 +12,6 @@ def readGraph(path, separator=" ", endline="\n", direct=True):
     for l in file:
         vIdO = l.split(separator)[0]
         vIdD = l.split(separator)[1].split(endline)[0]
-
         vO,vD = None, None
         if(vIdO in vertexArray):
             vO = vertexArray[vIdO]
@@ -26,7 +25,17 @@ def readGraph(path, separator=" ", endline="\n", direct=True):
             vD = g.add_vertex()
             vertexArray[vIdD] = vD
 
-        g.add_edge(vO,vD)
+        if(direct) :
+            g.add_edge(vO,vD)
+        else:
+            vONeighbours = vO.all_neighbours()
+            added = False
+            for neighbour in vONeighbours:
+                if(neighbour == vD):
+                    added = True
+                    break
+            if(added == False):
+                g.add_edge(vO,vD)
 
     print("ending reading");
     return g
@@ -161,10 +170,36 @@ def closenessMetric(g, graphName="default"):
         "std": vertexCloseness.a.std()
     }
 
-g = readGraph('./networks/wiki-Vote.txt', " ", endline="\r",  direct=False)
-# data = degreesMetric(g, False)
-# print(clusteringMetric(g))
-# print(betweenessMetric(g))
-# print(componentsMetric(g, False))
-print(closenessMetric(g))
+
+graphs = [
+    {
+        "path": './networks/facebook_combined.txt',
+        "direct": False,
+        "graphName": "facebook" ,
+        "endline": '\n'
+    },
+    {
+        "path": './networks/email-Enron.txt',
+        "direct": False,
+        "graphName": "email" ,
+        "endline": '\r'
+    },
+    {
+        "path": './networks/ca-HepPh.txt',
+        "direct": False,
+        "graphName": "ph" ,
+        "endline": '\r'
+    }
+]
+
+for graph in graphs:
+    g = readGraph(graph["path"], " ", endline=graph["endline"], direct=graph["direct"])
+    # graph_draw(g, output_size=(2048, 1280), output=graph["graphName"] + ".png")
+
+# g = readGraph('./networks/facebook_combined.txt', " ", endline="\r",  direct=False)
+# print(degreesMetric(g, False, graphName="facebook"))
+# print(clusteringMetric(g, False, graphName="facebook"))
+# print(betweenessMetric(g, graphName="facebook"))
+# print(componentsMetric(g, False, graphName="facebook"))
+# print(closenessMetric(g, graphName="facebook"))
 # graph_draw(g, output_size=(2048, 1280), output="facebookT.png")
