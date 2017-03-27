@@ -84,18 +84,20 @@ def distanceMetric(g, direct=True, graphName="default"):
     distances = shortest_distance(g, directed=direct)
     maxDist = []
     minDist = []
-    meanDist = []
-    stdDist = []
+    distArray = []
+    totalDistance = 0
     for v in g.vertices():
         dist = distances[v].a
         selfDist = np.where(dist == 0)
-        newDist = np.delete(dist, selfDist)
-        maxDist.append(newDist.max())
-        minDist.append(newDist.min())
-        meanDist.append(newDist.mean())
-        stdDist.append(newDist.std())
+        infiniteDist = np.where(dist == infDistance)
+        newDist = np.delete(dist, np.append(selfDist, infiniteDist))
+        if(len(newDist) > 0):
+            maxDist.append(newDist.max())
+            minDist.append(newDist.min())
+            distArray.append(np.sum(newDist))
+            totalDistance += len(newDist)
 
-    return {"max": np.max(maxDist), "min": min(minDist), "mean": np.mean(meanDist), "std": np.std(stdDist)}
+    return {"max": np.max(maxDist), "min": min(minDist), "mean": np.sum(distArray)/ totalDistance}
 
 def clusteringMetric(g, direct=True, graphName="default"):
     filename = "_".join(str(x) for x in [graphName,"cluster"])
