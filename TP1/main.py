@@ -1,4 +1,6 @@
+from __future__ import division
 from graph_tool.all import *
+import math
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -164,12 +166,17 @@ def componentsMetric(g, direct=True, graphName="default"):
 def closenessMetric(g, graphName="default"):
     filename = "_".join(str(x) for x in [graphName,"closeness"])
     vertexCloseness = closeness(g)
-    cdfReport(vertexCloseness.a, filename);
+    newCloseness = []
+    for vertex in vertexCloseness.a:
+        if(math.isnan(vertex) == False):
+            newCloseness.append(vertex)
+    cdfReport(newCloseness, filename);
+
     return {
-        "max": vertexCloseness.a.max(),
-        "min": vertexCloseness.a.min(),
-        "mean": vertexCloseness.a.mean(),
-        "std": vertexCloseness.a.std()
+        "max": np.max(newCloseness),
+        "min": np.min(newCloseness),
+        "mean": np.mean(newCloseness),
+        "std": np.std(newCloseness)
     }
 
 
@@ -196,12 +203,11 @@ graphs = [
 
 for graph in graphs:
     g = readGraph(graph["path"], " ", endline=graph["endline"], direct=graph["direct"])
-    # graph_draw(g, output_size=(2048, 1280), output=graph["graphName"] + ".png")
-
-# g = readGraph('./networks/facebook_combined.txt', " ", endline="\r",  direct=False)
-# print(degreesMetric(g, False, graphName="facebook"))
-# print(clusteringMetric(g, False, graphName="facebook"))
-# print(betweenessMetric(g, graphName="facebook"))
-# print(componentsMetric(g, False, graphName="facebook"))
-# print(closenessMetric(g, graphName="facebook"))
-# graph_draw(g, output_size=(2048, 1280), output="facebookT.png")
+    print(graph['graphName'])
+    print(degreesMetric(g, direct=graph["direct"], graphName=graph["graphName"]))
+    print(distanceMetric(g, direct=graph["direct"], graphName=graph["graphName"]))
+    print(clusteringMetric(g, direct=graph["direct"], graphName=graph["graphName"]))
+    print(betweenessMetric(g, graphName=graph["graphName"]))
+    print(componentsMetric(g, direct=graph["direct"], graphName=graph["graphName"]))
+    print(closenessMetric(g, graphName=graph["graphName"]))
+    graph_draw(g, output_size=(2048, 1280), output=graph["graphName"] + ".png")
