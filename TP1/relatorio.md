@@ -25,7 +25,7 @@ Foi utilizado para o desenvolvimento do trabalho a linguagem de programação Py
 ![Grafo Facebook](https://i.imgur.com/rXixFSx.png){ width=70% }
 
 
-Como pode ser observado na imagem, o grafo é conexo, ou seja, todos os vértices são conectados. Além disso, o grafo é não direcionado, visto que, as arestas representam a relação de amizade entre duas pessoas (vértices). É um grafo com **4039 vértices** e **88234 arestas**. Os dados foram coletados por participantes que são usuários do aplicativo do Facebook Social Circles.
+Como pode ser observado na imagem, o grafo é conexo, ou seja, todos os vértices são conectados. Além disso, o grafo é não direcionado, visto que, as arestas representam a relação de amizade entre duas pessoas (vértices). É um grafo com **4039 vértices** e **88234 arestas**. Os dados foram coletados por participantes que são usuários do aplicativo do Facebook *Social Circles*.
 
 #### **Métricas**
 
@@ -85,14 +85,15 @@ O grafo tem como maior distância entre dois vértices 13 arestas, e uma média 
 
 O gráfico acima pode-se avaliar a distribuição dos índices de clusterização e a sua probabilidade. Podem perceber que existem diversos vértices com índice próximos de 0, porém uma boa parte está em uma componente em que muitos vértices se relacionam entre si, aumentando assim a media do índice de clusterização.
 
+O gráfico abaixo é a representação do índice de *betweeness* do vertice pela probabilidade. Podemos concluir que a maioria dos vértices não fazem parte do menor caminho entre outros dois e que existem um numero baixo de vértices que funcionam como vertice de ligação entre outros dois formando assim, essa distribuição desequilibrada.
 
 ![*Betweeness* x Probabilidade](https://i.imgur.com/NPczzsy.png){ width=50% }
 
-O gráfico acima é a representação do índice de *betweeness* do vertice pela probabilidade. Podemos concluir que a maioria dos vértices não fazem parte do menor caminho entre outros dois e que existem um numero baixo de vértices que funcionam como vertice de ligação entre outros dois formando assim, essa distribuição desequilibrada.
+Como comprovado pelos dados de clusterização e de *betweeness*, os dados da métrica de componentes afirmam q existência de uma componente com mais de 92 por cento dados vértices e diversas componentes que não estão conectadas a componente principal. Dessa forma, a media do tamanho dos componentes é baixa, entretanto, o desvio padrão é elevado. 
 
-Como comprovado pelos dados de clusterização e de *betweeness*, os dados da métrica de componentes afirmam q existencia de uma componente com mais de 92 por cento dados vértices e diversas componentes que não estão conectadas a componente principal. Dessa forma, a media do tamanho dos componentes é baixa, entretanto, o desvio padrão é elevado. 
 ![*Closeness* x Probabilidade](https://i.imgur.com/aT9mgRE.png){ width=50% }
 
+Por último, o gráfico do índice *closeness* dos vértices pela sua probabilidade. Nos indica a existem de uma componente conexa grande, visto que a maior parte dos vértices possui centralidade entre 0,2 e 0,4. Além disso, nos valores de 0,0 até 0,2, estão a pequena quantidade de vértices que não estão na componente maior, justificando o seu índice. No fim da curva encontra-se vértices com alto grau e pertencentes a componente maior, justificando assim, seu alto índice de *closeness*.
 ![Grafo *High Energy Physics*](https://i.imgur.com/jbxPp1G.png){ width=70% }
 
 O grafo *High Energy Physics* é uma rede de colaboração entre autores de artigos científicos da categoria de *High Energy Physics*. Os autores são representados pelos vértices e se um autor *i* for co-autor de um artigo com o autor *j*, forma-se uma aresta unidirecional entre *i* e *j*. Se o artigo for de *k* autorias, forma-se um sub-grafo completo entre esses vértices. O grafo possui 12008 vértices e 118521 arestas.
