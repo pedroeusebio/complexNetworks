@@ -40,7 +40,7 @@ Como pode ser observado na imagem, o grafo é conexo, ou seja, todos os vértice
 - Clusterização Global : 0,51917428
 - Quantidade de Componentes : 1
     
-![Probabilidade x Grau](https://i.imgur.com/5hr2Wco.png){ width=50% }
+![Grau x Probabilidade](https://i.imgur.com/5hr2Wco.png){ width=50% }
 
 
 Podemos perceber através dos dados e do gráfico de Probalidade x Grau, a média baixa é explicada pelo fato de terem muitos vértices com um grau muito baixo e certas excessões com grau muito grande (como o grau máximo de 1045). Existem vértices isolados também, que são ligados a apenas um vertice.
@@ -48,19 +48,19 @@ Podemos perceber através dos dados e do gráfico de Probalidade x Grau, a médi
 Além disso, a maior distância do grafo é pequena se comparado ao número de vértices. Se observarmos a imagem do grafo veremos que temos diversos vértices que conectam os agrupamentos, fazendo um caminho mais rápido entre esses grupos, justificando dessa forma, a média da distância entre os vértices.
 	
 
-![](https://i.imgur.com/tkmA2Wh.png){ width=50% }
+![Clusterização x Probabilidade](https://i.imgur.com/tkmA2Wh.png){ width=50% }
 
 De acordo com o gráfico acima, podemos ver também a distribuição dos índices de clusterização e as suas respectivas probabilidades.
 Observando o valor médio da clusterização e o gráfico acima, nos permite dizer que existem diversos agrupamentos e que estes são bastante conexos e interligados, tendo diversos vértices interligados uns com os outros aumentando assim o índice médio de clusterização.
 Podemos perceber também, que o grafo é composto por apenas um componente, ou seja, existem pelo menos um caminho de um vértice para os demais.
 
 
-![](https://i.imgur.com/O7UDWZv.png){ width=50% }
+![*Closeness* x Probabilidade](https://i.imgur.com/O7UDWZv.png){ width=50% }
 
 
 ### 2. Enron Email Network
 
-![](https://i.imgur.com/Ndp3gPS.png){ width=50% }
+![Grafo Enron Email](https://i.imgur.com/Ndp3gPS.png){ width=70% }
 
 A rede de comunicação de e-mails da Enron dentro de um conjunto de dados de cerca de meio milhão de e-mails. Os vértices da rede são os endereços de e-mail e se o endereço *i* enviou pelo menos um e-mail para o endereço de e-mail *j*, forma-se uma aresta unidirecional entre os vértices *i* e *j*. O grafo contem  366692 vértices e 183831 arestas. 
 
@@ -81,24 +81,22 @@ Como pode ser visto na imagem do grafo, o grafo não é fortemente conexo pois e
 O grafo tem como maior distância entre dois vértices 13 arestas, e uma média de 4 arestas. Porém, vale a pena ressaltar que como o grafo não é fortemente conexo, existem pequenos componentes que não podem ser alcançados, gerando assim uma distancia infinita que foi desconsiderada para a realização do calculo.
 
 	
-![](https://i.imgur.com/GZdcJ8s.png){ width=50% }
+![Clusterização x Probabilidade](https://i.imgur.com/GZdcJ8s.png){ width=50% }
 
 O gráfico acima pode-se avaliar a distribuição dos índices de clusterização e a sua probabilidade. Podem perceber que existem diversos vértices com índice próximos de 0, porém uma boa parte está em uma componente em que muitos vértices se relacionam entre si, aumentando assim a media do índice de clusterização.
 
 
-![](https://i.imgur.com/NPczzsy.png){ width=50% }
+![*Betweeness* x Probabilidade](https://i.imgur.com/NPczzsy.png){ width=50% }
 
 O gráfico acima é a representação do índice de *betweeness* do vertice pela probabilidade. Podemos concluir que a maioria dos vértices não fazem parte do menor caminho entre outros dois e que existem um numero baixo de vértices que funcionam como vertice de ligação entre outros dois formando assim, essa distribuição desequilibrada.
 
 Como comprovado pelos dados de clusterização e de *betweeness*, os dados da métrica de componentes afirmam q existencia de uma componente com mais de 92 por cento dados vértices e diversas componentes que não estão conectadas a componente principal. Dessa forma, a media do tamanho dos componentes é baixa, entretanto, o desvio padrão é elevado. 
-	
-![Closeness x Probabilidade](https://i.imgur.com/aT9mgRE.png){ width=50% }
+![*Closeness* x Probabilidade](https://i.imgur.com/aT9mgRE.png){ width=50% }
 
-Por último, o gráfico do indice *closeness* dos vértices pela sua probabilidade.
+![Grafo *High Energy Physics*](https://i.imgur.com/jbxPp1G.png){ width=70% }
 
-### 3. High Energy Physics
+O grafo *High Energy Physics* é uma rede de colaboração entre autores de artigos científicos da categoria de *High Energy Physics*. Os autores são representados pelos vértices e se um autor *i* for co-autor de um artigo com o autor *j*, forma-se uma aresta unidirecional entre *i* e *j*. Se o artigo for de *k* autorias, forma-se um sub-grafo completo entre esses vértices. O grafo possui 12008 vértices e 118521 arestas.
 
-![](https://i.imgur.com/jbxPp1G.png){ width=50% }
 
 | Ph   | degrees     | distance | clustering    |betweeness edges|betweeness vertex| components   | closeness    | 
 |------|-------------|----------|---------------|----------------|-----------------|--------------|--------------| 
@@ -112,7 +110,7 @@ Por último, o gráfico do indice *closeness* dos vértices pela sua probabilida
 - **Métrica de Grau**
 
    
-![](https://i.imgur.com/8A398Bs.png){ width=50% }
+![Grau x Probabilidade](https://i.imgur.com/8A398Bs.png){ width=50% }
 
 - **Métrica de Distância**
    
@@ -122,14 +120,15 @@ Por último, o gráfico do indice *closeness* dos vértices pela sua probabilida
 
 ![](https://i.imgur.com/eynIYeg.png){ width=50% }
 
+![Clusterização x Probabilidade](https://i.imgur.com/eynIYeg.png){ width=50% }
 
 
 - **Métrica de *Betweeness***
 	
-![](https://i.imgur.com/aREtiC2.png){ width=50% }
+![*Betweeness* x Probabilidade](https://i.imgur.com/aREtiC2.png){ width=50% }
 
 
 
 - **Métrica de *Closeness***
 
-![](https://i.imgur.com/HtaBgax.png){ width=50% }
+![*Closeness* x Probabilidade](https://i.imgur.com/HtaBgax.png){ width=50% }
