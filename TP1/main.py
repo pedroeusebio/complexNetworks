@@ -47,6 +47,7 @@ def cdfReport(data, filename="export"):
     yvals = np.arange(len(sorted))/float(len(sorted))
     plt.plot(sorted, yvals)
     plt.savefig(filename)
+    plt.close()
 
 
 def degreesMetric(g, direct=True, graphName="default"):
@@ -107,12 +108,14 @@ def clusteringMetric(g, direct=True, graphName="default"):
     localResult = vertex_average(g, localCluster)
     maxClust = 0;
     minClust = infDistance;
+    list = []
     for v in g.vertices():
         if(localCluster[v] >= maxClust):
             maxClust = localCluster[v]
         if(localCluster[v] <= minClust):
             minClust = localCluster[v]
-    cdfReport(localCluster.a, filename)
+        list.append(localCluster[v])
+    cdfReport(list, filename)
 
     return {
         "global": global_clustering(g),
@@ -210,4 +213,4 @@ for graph in graphs:
     print(betweenessMetric(g, graphName=graph["graphName"]))
     print(componentsMetric(g, direct=graph["direct"], graphName=graph["graphName"]))
     print(closenessMetric(g, graphName=graph["graphName"]))
-    graph_draw(g, output_size=(2048, 1280), output=graph["graphName"] + ".png")
+    # graph_draw(g, output_size=(2048, 1280), output=graph["graphName"] + ".png")
